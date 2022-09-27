@@ -4,14 +4,21 @@
 const table = document.createElement("table");
 const tableInfo = document.getElementsByTagName("td");
 const checkColor = "";
+const inputHeight = document.getElementById('inputHeight');
+const inputWidth = document.getElementById('inputWidth');
 
 // Cells colored when picked
 function colorFill (event) {
+    event.preventDefault();
     const color = document.getElementById("colorPick").value;
     event.target.bgColor = color;
 }
 
-// When size is submitted by the user, call makeGrid()
+/**
+  * @desc create a grid of squares 
+  * @param int $width - number of squares representing the width of the grid
+  * @param int $height - number of squares representing the height of the grid
+*/
 
 function makeGrid(height, width) {
     table.innerHTML = "";
@@ -24,7 +31,6 @@ function makeGrid(height, width) {
         table.appendChild(newRow);
     }
     pixelCanvas.appendChild(table);
-    event.preventDefault();
     table.addEventListener('click', colorFill)
 }
 
@@ -40,12 +46,13 @@ function reset () {
 
 // To create the grids
 sizeInput.addEventListener('submit', function(event) {
+    event.preventDefault();
     if (tableInfo.length == (inputHeight.value*inputWidth.value)) {
         reset();
     }
     else {
-        let height = document.getElementById("inputHeight").value;
-        let width = document.getElementById("inputWidth").value;
+        let height = inputHeight.value;
+        let width = inputWidth.value;
         makeGrid(height, width);
     }
 })
